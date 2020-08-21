@@ -4,7 +4,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const bodyParser = require("body-parser");
-
+const session = require("express-session");
+const passport = require("./config/passport");
+const flash = require('connect-flash');
 
 mongoose
   .connect(process.env.DB, {
@@ -37,9 +39,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(flash());
+app.use(session({
+  secret: "our-passport-local-strategy-app",
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //routes
 const routes = require("./routes");
+const authRouter = require("./routes/auth-routes");
+app.use('/', authRouter);
 app.use("/", routes);
 
 app.listen(3000, () => {

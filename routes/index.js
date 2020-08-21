@@ -12,12 +12,6 @@ router.get("/", (req, res)=>{
     res.send("Funciona");
 });
 
-router.get("/register", registerGet);
-
-router.post("/register", registerPost);
-
-router.get("/login", loginGet);
-
 /* router.post("/create", createPost);*/
 
 router.get("/profile", profileGet);
