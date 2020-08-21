@@ -1,0 +1,14 @@
+.main-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item-container{
+    margin: 20px;
+}
+
+.form-container{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
