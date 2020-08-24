@@ -1,12 +1,14 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("./config/passport");
-const flash = require('connect-flash');
+const flash = require("connect-flash");
+
 
 mongoose
   .connect(process.env.DB, {
@@ -35,10 +37,9 @@ const app = express();
 //settings
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 //middlewares
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(flash());
 app.use(session({
   secret: "our-passport-local-strategy-app",
@@ -47,12 +48,16 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 
 
 //routes
 const routes = require("./routes");
 const authRouter = require("./routes/auth-routes");
-app.use('/', authRouter);
+app.use("/", authRouter);
 app.use("/", routes);
 
 app.listen(3000, () => {
