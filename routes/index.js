@@ -12,12 +12,12 @@ router.get("/", (req, res)=>{
     res.send("Funciona");
 });
 
-/* router.post("/create", createPost);*/
-
-router.get("/profile", profileGet);
-
 router.get("/photos", (req, res)=>{
     res.render("photos");
 });
+
+router.get('*', (req, res) => {
+    res.send('La página no existe');
+  });
 
 module.exports = router;

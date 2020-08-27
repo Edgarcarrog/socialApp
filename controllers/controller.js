@@ -1,3 +1,4 @@
+// require("dotenv").config();
 const User = require("../models/User");
 const passport = require("passport");
 
@@ -43,16 +44,35 @@ exports.loginPost = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return console.log(err);
     if (!user) {
-      return res.render("login", { msg: "Correo o contraseña incorrecta" });
+      return res.render("login", { message: "Correo o contraseña incorrecta" });
     }
     req.logIn(user, (err) => {
       if (err) console.log(err);
-      req.user = user;
+      //req.user = user;
+      //console.log(req.isAuthenticated());
       return res.redirect("/profile"); //, {loggedUser: true}
     });
   })(req, res, next);
 };
 
-exports.profileGet = (req, res) => {
-  res.render("profile");
+exports.profileGet = async (req, res) => {
+  const user = await req.user;
+  res.render("profile", { user });
+};
+
+exports.editProfileGet = async (req, res) => {
+  // console.log(cloudName);
+  const { id } = req.params;
+  user = await User.findById(id);
+  res.render("editProfile", { user });
+};
+
+exports.editProfilePost = async (req, res) => {
+  const { id } = req.params;
+  //console.log(app.locals.cloudName);
+  const { username, info, photoUrl } = req.body;
+  await User.findByIdAndUpdate(id, {
+    $set: { username, info, photoUrl },
+  });
+  res.redirect("/profile");
 };

@@ -9,7 +9,6 @@ const session = require("express-session");
 const passport = require("./config/passport");
 const flash = require("connect-flash");
 
-
 mongoose
   .connect(process.env.DB, {
     useNewUrlParser: true,
@@ -40,19 +39,20 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 //middlewares
+app.use(
+  session({
+    secret: "our-passport-local-strategy-app",
+    cookie: { maxAge: 3600000 },
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.use(flash());
-app.use(session({
-  secret: "our-passport-local-strategy-app",
-  resave: false,
-  saveUninitialized: true
-}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-
 
 //routes
 const routes = require("./routes");
