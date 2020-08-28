@@ -12,7 +12,9 @@ const {
   registerGet,
   registerPost,
   editProfileGet,
-  editProfilePost
+  editProfilePost,
+  uploadPhotoGet,
+  uploadPhotoPost
 } = require("../controllers/controller");
 
 const { isLoggedIn } = require('../middlewares/auth.middleware');
@@ -29,6 +31,10 @@ router.get("/profile", isLoggedIn, profileGet);
 
 router.get("/editProfile/:id", isLoggedIn, editProfileGet);
 
-router.post("/editProfile/:id", /* uploadCloud.single("photoUrl") , */ editProfilePost);
+router.post("/editProfile/:id", editProfilePost);
+
+router.get("/uploadPhoto/:id", isLoggedIn, uploadPhotoGet);
+
+router.post("/uploadPhoto/:id", uploadPhotoPost);
 
 module.exports = router;

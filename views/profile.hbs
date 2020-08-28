@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="row main-container">
-        <div class="col-sm-4">
+    <div class="row container-sm">
+        <div class="col">
             <div class="card item-container" style="width: 18rem;">
                 <img src={{user.photoUrl}} class="card-img-top" alt="profile-Image">
                 <div class="card-body">
@@ -10,10 +10,33 @@
                 <a href="/editProfile/{{user.id}}">Editar perfil</a>
             </div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-8">
             <div class="item-container">
-                col-sm-4
+                <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-interval="false">
+                            <img src="https://res.cloudinary.com/edcrgs/image/upload/v1598508255/socialApp/pexels-eberhard-grossgasteiger-1004665_vbhkhg.jpg"
+                                class="d-block w-100" alt="pic1">
+                        </div>
+                        {{#each user.myPhotosUrl}}
+                        <div class="carousel-item" data-interval="false">
+                            <img src={{this}} class="d-block w-100" alt="pic">
+                        </div>
+                        {{/each}}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div>
+                    <button type="button" type="button" onclick="location.href='/uploadPhoto/{{user.id}}';"
+                        class="btn btn-primary">Subir foto</button>
+                </div>
             </div>
         </div>
     </div>
-</div>

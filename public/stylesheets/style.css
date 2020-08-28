@@ -12,3 +12,13 @@
     display: flex;
     justify-content: center;
 }
+
+.col, .col-8, .row {
+    display: flex;
+    justify-content: center;
+    /* text-align: center; */
+}
+
+.carousel-item{
+    width: 100%;
+}

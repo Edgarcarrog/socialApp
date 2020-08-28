@@ -1,0 +1,22 @@
+
+<h1>PHOTOS!!!!!!!!!!1</h1>
+<div class="container-fluid contenedor-custom">
+    <div class="row justify-content-center custom-row">
+        <form action="/uploadPhoto/{{user.id}}" method="POST" class="formulario">
+            <div>
+                <input name="myphotoUrl" value="{{user.photoUrl}}" type="text" id="myphotoUrl" style="display: none;">
+                <img style="width: 300px;" id="user-photo" src="{{user.photoUrl}}" alt="user-photo">
+                <button type="button" id="upload_widget">Subir foto</button>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" type="button" onclick="location.href='/profile';"
+                    class="btn btn-danger">Cancelar</button>
+                <button type="submit" class="btn btn-success">Aceptar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
+<script src="/javascripts/myPhotosLoad.js"></script>

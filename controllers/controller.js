@@ -61,7 +61,6 @@ exports.profileGet = async (req, res) => {
 };
 
 exports.editProfileGet = async (req, res) => {
-  // console.log(cloudName);
   const { id } = req.params;
   user = await User.findById(id);
   res.render("editProfile", { user });
@@ -69,10 +68,22 @@ exports.editProfileGet = async (req, res) => {
 
 exports.editProfilePost = async (req, res) => {
   const { id } = req.params;
-  //console.log(app.locals.cloudName);
   const { username, info, photoUrl } = req.body;
   await User.findByIdAndUpdate(id, {
     $set: { username, info, photoUrl },
   });
+  res.redirect("/profile");
+};
+
+exports.uploadPhotoGet = async (req, res) => {
+  const { id } = req.params;
+  user = await User.findById(id);
+  res.render("uploadPhoto", { user });
+};
+
+exports.uploadPhotoPost = async (req, res) => {
+  const { id } = req.params;
+  const { myphotoUrl } = req.body;
+  await User.findByIdAndUpdate(id, { $push: { myPhotosUrl: myphotoUrl }});
   res.redirect("/profile");
 };
